@@ -7,25 +7,41 @@ import org.junit.Test;
 public class ValidateISBNTest {
 
 	@Test
-	public void checkAValidISBN() {
+	public void checkAValid10DigitISBN() {
 		ValidateISBN validator = new ValidateISBN();
 		boolean result = validator.checkISBN("0140449116");
 		assertTrue("first value", result);
 		result = validator.checkISBN("0140177396");
 		assertTrue("second value", result);
 	}
+	
+	@Test
+	public void checkAValid13DigitISBN() {
+		ValidateISBN validator = new ValidateISBN();
+		boolean result = validator.checkISBN("9780134685991");	
+		assertTrue("first value", result);
+		result = validator.checkISBN("9783570103814");	
+		assertTrue("second value", result);
+	}
 
 	@Test
-	public void ISBNNumbersEndingInXAreValid() {
+	public void TenDigitISBNNumbersEndingInXAreValid() {
 		ValidateISBN validator = new ValidateISBN();
 		boolean result = validator.checkISBN("179844822X");
 		assertTrue(result);
 	}
 	
 	@Test
-	public void checkAnInvalidISBN() {
+	public void checkAnInvalid10DigitISBN() {
 		ValidateISBN validator = new ValidateISBN();
 		boolean result = validator.checkISBN("0140449117");
+		assertFalse(result);
+	}
+	
+	@Test
+	public void checkAnInvalid13DigitISBN() {
+		ValidateISBN validator = new ValidateISBN();
+		boolean result = validator.checkISBN("9780134685992");
 		assertFalse(result);
 	}
 
@@ -40,4 +56,6 @@ public class ValidateISBNTest {
 		ValidateISBN validator = new ValidateISBN();
 		validator.checkISBN("helloworld");	
 	}
+	
+
 }
