@@ -2,14 +2,22 @@ package com.virtualpairprogrammers.isbntools;
 
 public class StockManager {
 
-	private ExternalISBNDataService service; 
+	private ExternalISBNDataService webService; 
+	private ExternalISBNDataService databaseService; 
 	
-	public void setService(ExternalISBNDataService service) {
-		this.service = service;
+	public void setWebService(ExternalISBNDataService service) {
+		this.webService = service;
+	}
+
+	public void setDatabaseService(ExternalISBNDataService service) {
+		this.databaseService = service;
 	}
 
 	public String getLocatorCode(String isbn) {
-		Book book = service.lookup(isbn);
+		
+		Book book = databaseService.lookup(isbn);
+		
+		if (book == null) book = webService.lookup(isbn);
 		
 		StringBuilder locator = new StringBuilder();
 		locator.append(book.getIsbn().substring(isbn.length() -4));
